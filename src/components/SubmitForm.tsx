@@ -4,7 +4,7 @@ import { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } fr
 import Link from "next/link";
 import Script from "next/script";
 import { useSearchParams } from "next/navigation";
-import { AlertCircle, ArrowRight, CircleCheck, GitPullRequest, LoaderCircle, Pencil, Plus, Trash2 } from "lucide-react";
+import { AlertCircle, CircleCheck, LoaderCircle } from "lucide-react";
 import {
   CATEGORIES,
   STATUSES,
@@ -296,7 +296,7 @@ export function SubmitForm({ projects }: { projects: Project[] }) {
 
   if (result?.kind === "success") {
     return (
-      <div className="card mt-10 flex flex-col items-center rounded-[24px] px-6 py-14 text-center animate-rise">
+      <div className="mt-10 flex flex-col items-center rounded-2xl bg-bg-alt px-6 py-16 text-center">
         <span className="grid size-14 place-items-center rounded-2xl bg-success/15 text-success">
           <CircleCheck className="size-7" />
         </span>
@@ -307,7 +307,7 @@ export function SubmitForm({ projects }: { projects: Project[] }) {
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           {result.url && (
             <a href={result.url} target="_blank" rel="noreferrer" className="btn btn-primary">
-              <GitPullRequest className="size-4" /> View pull request{result.number ? ` #${result.number}` : ""}
+              View pull request{result.number ? ` #${result.number}` : ""}
             </a>
           )}
           <Link href="/" className="btn btn-secondary">
@@ -318,19 +318,19 @@ export function SubmitForm({ projects }: { projects: Project[] }) {
     );
   }
 
-  const tabs: { id: Mode; label: string; icon: typeof Plus; disabled?: boolean }[] = [
-    { id: "add", label: "Add new", icon: Plus },
-    { id: "edit", label: "Suggest edit", icon: Pencil, disabled: projects.length === 0 },
-    { id: "remove", label: "Request removal", icon: Trash2, disabled: projects.length === 0 },
+  const tabs: { id: Mode; label: string; disabled?: boolean }[] = [
+    { id: "add", label: "Add new" },
+    { id: "edit", label: "Suggest edit", disabled: projects.length === 0 },
+    { id: "remove", label: "Request removal", disabled: projects.length === 0 },
   ];
 
   return (
-    <form onSubmit={onSubmit} noValidate className="mt-10 grid gap-8 lg:grid-cols-[1fr_340px]">
+    <form onSubmit={onSubmit} noValidate className="mt-10 grid gap-10 lg:grid-cols-[1fr_340px]">
       {site.turnstileSiteKey && (
         <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" onReady={renderTurnstile} />
       )}
       <div className="min-w-0 space-y-6">
-        <div className="card inline-flex w-full gap-1 rounded-2xl p-1 sm:w-auto" role="tablist" aria-label="Request type">
+        <div className="inline-flex w-full gap-0.5 rounded-full bg-bg-alt p-1 sm:w-auto" role="tablist" aria-label="Request type">
           {tabs.map((t) => (
             <button
               key={t.id}
@@ -339,11 +339,10 @@ export function SubmitForm({ projects }: { projects: Project[] }) {
               aria-selected={mode === t.id}
               disabled={t.disabled}
               onClick={() => switchMode(t.id)}
-              className={`inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-xl px-3 text-sm font-semibold transition sm:flex-none sm:px-4 ${
-                mode === t.id ? "bg-accent text-accent-fg shadow-sm" : "text-fg-muted hover:bg-surface-muted hover:text-fg"
+              className={`inline-flex h-9 flex-1 items-center justify-center rounded-full px-3 text-sm transition sm:flex-none sm:px-5 ${
+                mode === t.id ? "bg-surface-strong font-medium text-fg shadow-sm" : "text-fg-muted hover:text-fg"
               } disabled:opacity-40`}
             >
-              <t.icon className="size-4" />
               <span className="max-sm:text-xs">{t.label}</span>
             </button>
           ))}
@@ -518,9 +517,8 @@ export function SubmitForm({ projects }: { projects: Project[] }) {
             By submitting you agree that the data will be published under the repository&apos;s license.
           </p>
           <button type="submit" disabled={submitting} className={`btn h-11 px-6 ${mode === "remove" ? "btn-danger" : "btn-primary"}`}>
-            {submitting ? <LoaderCircle className="size-4 animate-spin" /> : <GitPullRequest className="size-4" />}
+            {submitting && <LoaderCircle className="size-4 animate-spin" />}
             {submitting ? "Opening pull request…" : mode === "add" ? "Submit project" : mode === "edit" ? "Propose changes" : "Request removal"}
-            {!submitting && <ArrowRight className="size-4" />}
           </button>
         </div>
       </div>
@@ -528,7 +526,7 @@ export function SubmitForm({ projects }: { projects: Project[] }) {
       <aside className="lg:sticky lg:top-24 lg:self-start">
         {preview ? (
           <>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-fg-subtle">Live preview</p>
+            <p className="mb-3 text-sm text-fg-muted">Preview</p>
             <div className="pointer-events-none">
               <ProjectCard project={preview} preview />
             </div>
@@ -536,15 +534,15 @@ export function SubmitForm({ projects }: { projects: Project[] }) {
         ) : (
           targetProject && (
             <>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-fg-subtle">Requesting removal of</p>
+              <p className="mb-3 text-sm text-fg-muted">Requesting removal of</p>
               <div className="pointer-events-none opacity-70 grayscale">
                 <ProjectCard project={targetProject} preview />
               </div>
             </>
           )
         )}
-        <div className="mt-4 rounded-2xl border border-line bg-surface-muted/60 p-4 text-sm text-fg-muted">
-          <p className="font-semibold text-fg">Guidelines</p>
+        <div className="mt-6 rounded-2xl bg-bg-alt p-5 text-sm text-fg-muted">
+          <p className="font-medium text-fg">Guidelines</p>
           <ul className="mt-2 list-disc space-y-1 pl-4">
             <li>The project must run on or integrate with ZimaOS.</li>
             <li>Use English and keep it factual, no marketing fluff.</li>
@@ -558,9 +556,9 @@ export function SubmitForm({ projects }: { projects: Project[] }) {
 
 function Fieldset({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
   return (
-    <fieldset className="card space-y-5 rounded-[20px] p-5 sm:p-6">
+    <fieldset className="space-y-5 rounded-2xl border border-line bg-surface-strong p-5 sm:p-7">
       <legend className="float-left w-full">
-        <span className="block font-semibold">{title}</span>
+        <span className="block text-lg font-semibold tracking-tight">{title}</span>
         {description && <span className="mt-0.5 block text-sm text-fg-muted">{description}</span>}
       </legend>
       <div className="clear-both space-y-5">{children}</div>

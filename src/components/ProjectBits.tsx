@@ -3,14 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/lib/schema";
 
-const GRADIENTS = [
-  "from-[#3b86ff] to-[#0b4fd6]",
-  "from-[#22c1a6] to-[#0f8a7a]",
-  "from-[#8b5cf6] to-[#5b2fd6]",
-  "from-[#f59e0b] to-[#d9480f]",
-  "from-[#ec4899] to-[#be185d]",
-  "from-[#0ea5e9] to-[#0369a1]",
-];
+const COLORS = ["#2276F3", "#0F9D8A", "#7C4DFF", "#E8710A", "#D93F87", "#0288D1"];
 
 function hash(text: string) {
   let h = 0;
@@ -37,7 +30,7 @@ export function ProjectIcon({ project, size = "md" }: { project: Pick<Project, "
 
   if (project.icon && !failed) {
     return (
-      <span className={`${box} grid shrink-0 place-items-center overflow-hidden border border-line bg-surface-strong p-1.5 shadow-sm`}>
+      <span className={`${box} grid shrink-0 place-items-center overflow-hidden border border-line bg-surface-strong p-1.5`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- arbitrary remote icons */}
         <img
           ref={imgRef}
@@ -52,7 +45,8 @@ export function ProjectIcon({ project, size = "md" }: { project: Pick<Project, "
 
   return (
     <span
-      className={`${box} grid shrink-0 place-items-center bg-gradient-to-br font-semibold text-white shadow-sm ${GRADIENTS[hash(project.slug) % GRADIENTS.length]}`}
+      className={`${box} grid shrink-0 place-items-center font-semibold text-white`}
+      style={{ backgroundColor: COLORS[hash(project.slug) % COLORS.length] }}
       aria-hidden="true"
     >
       {initials}

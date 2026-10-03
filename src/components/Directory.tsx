@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { LayoutGrid, List, Plus, Search, SearchX, X } from "lucide-react";
+import { LayoutGrid, List, Search, X } from "lucide-react";
 import { CATEGORIES, type Project } from "@/lib/schema";
 import { ProjectCard, ProjectRow } from "./ProjectCard";
 
@@ -73,7 +73,15 @@ export function Directory({ projects }: { projects: Project[] }) {
 
   return (
     <div>
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
+      <div className="mb-8 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">All projects</h2>
+        <p className="text-sm text-fg-muted" aria-live="polite">
+          {filtered.length === projects.length
+            ? `${projects.length} ${projects.length === 1 ? "project" : "projects"}`
+            : `${filtered.length} of ${projects.length} projects`}
+        </p>
+      </div>
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
         <label className="relative flex-1">
           <span className="sr-only">Search projects</span>
           <Search className="pointer-events-none absolute left-3.5 top-1/2 size-[18px] -translate-y-1/2 text-fg-subtle" />
@@ -82,7 +90,7 @@ export function Directory({ projects }: { projects: Project[] }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name, tag or author…"
-            className="input h-12 pl-11 pr-10 shadow-card"
+            className="input h-11 rounded-full bg-bg-alt pl-11 pr-10 border-transparent"
           />
           {query && (
             <button
@@ -101,7 +109,7 @@ export function Directory({ projects }: { projects: Project[] }) {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as Sort)}
-              className="input h-12 w-auto cursor-pointer appearance-none pr-9 text-sm font-medium shadow-card"
+              className="input h-11 w-auto cursor-pointer appearance-none rounded-full border-transparent bg-bg-alt pl-4 pr-9 text-sm"
             >
               <option value="newest">Newest</option>
               <option value="updated">Recently updated</option>
@@ -111,7 +119,7 @@ export function Directory({ projects }: { projects: Project[] }) {
               <path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </label>
-          <div className="card flex h-12 items-center gap-1 rounded-xl p-1" role="group" aria-label="Layout">
+          <div className="flex h-11 items-center gap-0.5 rounded-full bg-bg-alt p-1" role="group" aria-label="Layout">
             {(
               [
                 ["grid", LayoutGrid, "Grid view"],
@@ -125,18 +133,18 @@ export function Directory({ projects }: { projects: Project[] }) {
                 aria-pressed={view === v}
                 aria-label={label}
                 title={label}
-                className={`grid size-10 place-items-center rounded-lg transition ${
-                  view === v ? "bg-accent text-accent-fg shadow-sm" : "text-fg-muted hover:bg-surface-muted hover:text-fg"
+                className={`grid size-9 place-items-center rounded-full transition ${
+                  view === v ? "bg-surface-strong text-fg shadow-sm" : "text-fg-muted hover:text-fg"
                 }`}
               >
-                <Icon className="size-[18px]" />
+                <Icon className="size-4" />
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Filter by category">
+      <div className="-mx-4 mt-4 flex gap-1 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Filter by category">
         {["All", ...usedCategories].map((c) => {
           const active = category === c;
           const count = c === "All" ? projects.length : counts.get(c);
@@ -146,65 +154,39 @@ export function Directory({ projects }: { projects: Project[] }) {
               type="button"
               onClick={() => setCategory(c)}
               aria-pressed={active}
-              className={`inline-flex h-9 shrink-0 items-center gap-2 rounded-full border px-3.5 text-sm font-medium transition ${
-                active
-                  ? "border-transparent bg-fg text-bg"
-                  : "border-line-strong bg-surface-strong text-fg-muted hover:border-fg-subtle hover:text-fg"
+              className={`inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full px-3.5 text-sm transition ${
+                active ? "bg-fg text-bg" : "text-fg-muted hover:bg-bg-alt hover:text-fg"
               }`}
             >
               {c}
-              <span className={`text-xs tabular-nums ${active ? "opacity-70" : "text-fg-subtle"}`}>{count}</span>
+              <span className={`text-xs tabular-nums ${active ? "opacity-60" : "text-fg-subtle"}`}>{count}</span>
             </button>
           );
         })}
       </div>
 
-      <p className="mt-6 text-sm text-fg-subtle" aria-live="polite">
-        {filtered.length === projects.length
-          ? `${projects.length} ${projects.length === 1 ? "project" : "projects"}`
-          : `${filtered.length} of ${projects.length} projects`}
-      </p>
 
       {filtered.length === 0 ? (
-        <div className="card mt-3 flex flex-col items-center rounded-[20px] px-6 py-16 text-center">
-          <span className="grid size-12 place-items-center rounded-2xl bg-accent-soft text-accent">
-            <SearchX className="size-6" />
-          </span>
-          <h3 className="mt-4 font-semibold">No projects match your filters</h3>
-          <p className="mt-1 max-w-sm text-sm text-fg-muted">
-            Try a different search, or add the project you were looking for.
+        <div className="mt-6 rounded-2xl bg-bg-alt px-6 py-16 text-center">
+          <h3 className="font-semibold">No projects match your search</h3>
+          <p className="mx-auto mt-1 max-w-sm text-sm text-fg-muted">
+            Try another term, or <Link href="/submit" className="text-accent hover:underline">submit the project</Link> you were looking for.
           </p>
-          <div className="mt-5 flex gap-2">
-            <button type="button" onClick={reset} className="btn btn-secondary">
-              Clear filters
-            </button>
-            <Link href="/submit" className="btn btn-primary">
-              <Plus className="size-4" /> Submit project
-            </Link>
-          </div>
+          <button type="button" onClick={reset} className="btn btn-secondary mt-5">
+            Clear filters
+          </button>
         </div>
       ) : view === "grid" ? (
-        <ul className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((p, i) => (
-            <li key={p.slug} className="animate-rise" style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}>
+        <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((p) => (
+            <li key={p.slug}>
               <ProjectCard project={p} />
             </li>
           ))}
-          <li>
-            <Link
-              href="/submit"
-              className="group flex h-full min-h-48 flex-col items-center justify-center rounded-[20px] border-2 border-dashed border-line-strong p-5 text-center text-fg-muted transition hover:border-accent hover:bg-accent-soft hover:text-accent"
-            >
-              <span className="grid size-11 place-items-center rounded-full bg-surface-muted transition group-hover:bg-accent group-hover:text-accent-fg">
-                <Plus className="size-5" />
-              </span>
-              <span className="mt-3 text-sm font-semibold">Built something for ZimaOS?</span>
-              <span className="mt-0.5 text-xs">Add it to the directory</span>
-            </Link>
-          </li>
+
         </ul>
       ) : (
-        <ul className="card mt-3 divide-y divide-line overflow-hidden rounded-[20px]">
+        <ul className="mt-6 divide-y divide-line overflow-hidden rounded-2xl border border-line">
           {filtered.map((p) => (
             <li key={p.slug}>
               <ProjectRow project={p} />

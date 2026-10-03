@@ -8,21 +8,15 @@ export function GitHubIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-/** Wordmark glyph: stacked rounded tiles, a nod to a dashboard of apps. */
+/** Flat mark: four rounded tiles, like apps on a home screen. */
 export function LogoMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden="true">
-      <defs>
-        <linearGradient id="lm-bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#3b86ff" />
-          <stop offset="1" stopColor="#0b4fd6" />
-        </linearGradient>
-      </defs>
-      <rect width="32" height="32" rx="9" fill="url(#lm-bg)" />
-      <rect x="7.5" y="7.5" width="7.5" height="7.5" rx="2.2" fill="#fff" />
-      <rect x="17" y="7.5" width="7.5" height="7.5" rx="2.2" fill="#fff" fillOpacity=".55" />
-      <rect x="7.5" y="17" width="7.5" height="7.5" rx="2.2" fill="#fff" fillOpacity=".55" />
-      <rect x="17" y="17" width="7.5" height="7.5" rx="3.75" fill="#fff" fillOpacity=".85" />
+      <rect width="32" height="32" rx="8" fill="#2276F3" />
+      <rect x="8" y="8" width="7" height="7" rx="2" fill="#fff" />
+      <rect x="17" y="8" width="7" height="7" rx="2" fill="#fff" />
+      <rect x="8" y="17" width="7" height="7" rx="2" fill="#fff" />
+      <rect x="17" y="17" width="7" height="7" rx="3.5" fill="#fff" />
     </svg>
   );
 }

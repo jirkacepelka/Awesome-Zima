@@ -3,60 +3,63 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {
-  --bg: #f3f6fb;
+  --bg: #ffffff;
   --bg-elevated: #ffffff;
-  --surface: rgba(255, 255, 255, 0.78);
+  --bg-alt: #f5f5f7;
+  --surface: rgba(255, 255, 255, 0.85);
   --surface-strong: #ffffff;
-  --surface-muted: #eef2f8;
-  --border: rgba(15, 30, 60, 0.08);
-  --border-strong: rgba(15, 30, 60, 0.16);
-  --fg: #0d1526;
-  --fg-muted: #56627a;
-  --fg-subtle: #8792a8;
-  --accent: #1a6dff;
-  --accent-hover: #0f5ae6;
-  --accent-soft: rgba(26, 109, 255, 0.1);
+  --surface-muted: #f5f5f7;
+  --border: #e5e5ea;
+  --border-strong: #d2d2d7;
+  --fg: #1d1d1f;
+  --fg-muted: #6e6e73;
+  --fg-subtle: #8e8e93;
+  --accent: #2276f3;
+  --accent-hover: #1663d6;
+  --accent-soft: #e8f1fe;
   --accent-fg: #ffffff;
-  --success: #12a150;
+  --success: #28a745;
   --warning: #c27803;
   --danger: #e5484d;
-  --shadow-card: 0 1px 2px rgba(13, 21, 38, 0.04), 0 8px 24px -12px rgba(13, 21, 38, 0.12);
-  --shadow-card-hover: 0 2px 4px rgba(13, 21, 38, 0.05), 0 20px 40px -16px rgba(26, 109, 255, 0.28);
-  --hero-from: #0b1a3a;
-  --hero-via: #10306e;
-  --hero-to: #1a6dff;
+  --shadow-card: none;
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --invert-bg: #1d1d1f;
+  --invert-fg: #f5f5f7;
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --bg: #0a0f1c;
-  --bg-elevated: #111827;
-  --surface: rgba(22, 30, 48, 0.72);
-  --surface-strong: #151d30;
-  --surface-muted: #1a2338;
-  --border: rgba(255, 255, 255, 0.07);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --fg: #e9eef8;
-  --fg-muted: #9aa6bf;
-  --fg-subtle: #6b7792;
-  --accent: #4d8dff;
-  --accent-hover: #6aa0ff;
-  --accent-soft: rgba(77, 141, 255, 0.14);
+  --bg: #000000;
+  --bg-elevated: #1c1c1e;
+  --bg-alt: #111113;
+  --surface: rgba(28, 28, 30, 0.85);
+  --surface-strong: #1c1c1e;
+  --surface-muted: #2c2c2e;
+  --border: #2c2c2e;
+  --border-strong: #3a3a3c;
+  --fg: #f5f5f7;
+  --fg-muted: #a1a1a6;
+  --fg-subtle: #8e8e93;
+  --accent: #3d8bff;
+  --accent-hover: #5c9dff;
+  --accent-soft: rgba(61, 139, 255, 0.15);
   --accent-fg: #ffffff;
-  --success: #3dd68c;
-  --warning: #f5b544;
+  --success: #34c759;
+  --warning: #ffb340;
   --danger: #ff6369;
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
-  --shadow-card-hover: 0 2px 4px rgba(0, 0, 0, 0.3), 0 20px 40px -16px rgba(77, 141, 255, 0.35);
-  --hero-from: #050a16;
-  --hero-via: #0b1d45;
-  --hero-to: #1550c8;
+  --shadow-card: none;
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --invert-bg: #1c1c1e;
+  --invert-fg: #f5f5f7;
   color-scheme: dark;
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-bg-elevated: var(--bg-elevated);
+  --color-bg-alt: var(--bg-alt);
+  --color-invert: var(--invert-bg);
+  --color-invert-fg: var(--invert-fg);
   --color-surface: var(--surface);
   --color-surface-strong: var(--surface-strong);
   --color-surface-muted: var(--surface-muted);
@@ -105,7 +108,6 @@ body {
     background: var(--surface);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border: 1px solid var(--border);
   }
 
   .card {
@@ -120,10 +122,10 @@ body {
     justify-content: center;
     gap: 0.5rem;
     height: 2.5rem;
-    padding: 0 1rem;
-    border-radius: 0.75rem;
+    padding: 0 1.25rem;
+    border-radius: 9999px;
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 500;
     white-space: nowrap;
     transition: background-color 150ms, color 150ms, border-color 150ms, box-shadow 150ms, transform 150ms;
   }
@@ -133,7 +135,6 @@ body {
   .btn-primary {
     background: var(--accent);
     color: var(--accent-fg);
-    box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--accent) 60%, transparent);
   }
   .btn-primary:hover {
     background: var(--accent-hover);
@@ -169,7 +170,7 @@ body {
     width: 100%;
     height: 2.75rem;
     padding: 0 0.875rem;
-    border-radius: 0.75rem;
+    border-radius: 0.625rem;
     background: var(--surface-strong);
     border: 1px solid var(--border-strong);
     color: var(--fg);
@@ -195,16 +196,6 @@ body {
   }
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(0, -18px, 0) scale(1.05);
-  }
-}
-
 @keyframes rise {
   from {
     opacity: 0;
@@ -216,15 +207,11 @@ body {
   }
 }
 
-.animate-float {
-  animation: float 14s ease-in-out infinite;
-}
 .animate-rise {
   animation: rise 500ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-float,
   .animate-rise {
     animation: none;
   }
