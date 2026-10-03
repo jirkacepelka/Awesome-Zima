@@ -1,0 +1,17 @@
+{
+  "slug": "zimamc",
+  "name": "ZimaMC",
+  "tagline": "Your own Minecraft server in a few clicks, for ZimaOS and Windows.",
+  "description": "A web app that lets anyone create and run Minecraft Java servers without touching a terminal. Pick a name, a game and a size, and ZimaMC does the rest.\n\nSupports Paper, Folia, Vanilla, Fabric and Forge, with per-server memory and CPU limits, plugins and mods from Modrinth, world pre-generation with Chunky, incremental backups, a live console, a file manager and three ways to let friends join: UPnP, your own Cloudflare domain, or a playit.gg tunnel.",
+  "category": "App",
+  "tags": ["minecraft", "gaming", "docker", "game-server"],
+  "url": "https://github.com/jirkacepelka/ZimaMC",
+  "repo": "https://github.com/jirkacepelka/ZimaMC",
+  "icon": "https://raw.githubusercontent.com/jirkacepelka/ZimaMC/main/frontend/public/icon.svg",
+  "screenshots": ["https://raw.githubusercontent.com/jirkacepelka/ZimaMC/main/docs/screenshot-dashboard.png"],
+  "author": { "name": "jirkacepelka", "url": "https://github.com/jirkacepelka" },
+  "license": "MIT",
+  "status": "active",
+  "addedAt": "2026-10-03",
+  "updatedAt": "2026-10-03"
+}

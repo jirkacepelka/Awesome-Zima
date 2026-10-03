@@ -1,0 +1,16 @@
+{
+  "slug": "simplesync",
+  "name": "SimpleSync",
+  "tagline": "Simple self-hosted sync for Obsidian: one small server and a plugin.",
+  "description": "An easy-to-set-up, self-hostable Obsidian sync server. No CouchDB, no S3 keys, no config files to tune: in Obsidian you enter the server address, name and password, pick a vault and you are done.\n\nRuns as one small Docker container (Go + SQLite) that installs on ZimaOS as a custom app. Includes a web editor, publishing of chosen notes as a public website, multi-vault and member management, version history, trash, scheduled vault backups, safe conflict handling and an MCP server for your AI agent.",
+  "category": "App",
+  "tags": ["obsidian", "sync", "notes", "self-hosted", "docker"],
+  "url": "https://simplesync.nieuportlabs.cz/",
+  "repo": "https://github.com/jirkacepelka/SimpleSync",
+  "icon": "https://raw.githubusercontent.com/jirkacepelka/SimpleSync/main/server/internal/web/static/icon.svg",
+  "author": { "name": "jirkacepelka", "url": "https://github.com/jirkacepelka" },
+  "license": "MIT",
+  "status": "active",
+  "addedAt": "2026-10-03",
+  "updatedAt": "2026-10-03"
+}
